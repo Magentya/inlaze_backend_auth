@@ -3,7 +3,11 @@ import { AppModule } from './app.module';
 import helmet from 'helmet';
 import { Transport } from '@nestjs/microservices';
 
+import env from './env';
+
 async function bootstrap() {
+  const { port } = env;
+
   const app = await NestFactory.create(AppModule, {
     cors: true,
   });
@@ -23,6 +27,6 @@ async function bootstrap() {
     await app.startAllMicroservices();
   }
 
-  await app.listen(process.env.PORT);
+  await app.listen(port);
 }
 bootstrap();
