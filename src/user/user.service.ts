@@ -19,18 +19,21 @@ export class UserService {
 
   async read(id: number) {
     if (!id) {
-      return await this.userRepository.find();
+      return await this.userRepository.find({
+        relations: ['rol'],
+      });
     }
     return await this.userRepository.findOne({
       where: { id },
+      relations: ['rol'],
     });
   }
 
-  async update(id: number, data: UpdateUserDto): Promise<UpdateResult> {
-    if (data.password) {
-      data.password = await encryptPassword(data.password);
+  async update(id: number, user: UpdateUserDto): Promise<UpdateResult> {
+    if (user.password) {
+      user.password = await encryptPassword(user.password);
     }
-    return await this.userRepository.update({ id }, data);
+    return await this.userRepository.update({ id }, user);
   }
 
   async delete(id: number): Promise<DeleteResult> {
