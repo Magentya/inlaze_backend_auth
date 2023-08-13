@@ -39,4 +39,10 @@ export class UserService {
   async delete(id: number): Promise<DeleteResult> {
     return await this.userRepository.softDelete({ id });
   }
+
+  async getUserByMail(mail: string): Promise<User> {
+    return await this.userRepository.findOne({
+      where: { email: mail },
+    });
+  }
 }
