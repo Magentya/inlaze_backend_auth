@@ -20,6 +20,7 @@ async function bootstrap() {
     app.connectMicroservice({
       transport: Transport.REDIS,
       options: {
+        host: process.env.REDIS_URL,
         url: process.env.REDIS_URL,
       },
     });

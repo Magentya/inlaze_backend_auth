@@ -30,6 +30,13 @@ export class AuthService {
   }
 
   validateToken(accessToken: string) {
+    console.log('accessToken', accessToken);
+
+    console.log(
+      'this.jwtService.verify(accessToken)',
+      this.jwtService.verify(accessToken),
+    );
+
     return this.jwtService.verify(accessToken);
   }
 }
