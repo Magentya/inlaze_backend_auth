@@ -10,6 +10,7 @@ import {
   Param,
   Put,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import to from 'await-to-js';
 
@@ -22,6 +23,7 @@ import {
   UpdateUserSchema,
 } from './user.dto.and.joi';
 import { GeneralResponse } from 'src/types';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
@@ -46,6 +48,7 @@ export class UserController {
 
   @Get('/:id?')
   @HttpCode(HttpStatus.OK)
+  // @UseGuards(AuthGuard('jwt'))
   async read(@Param('id') id: number): Promise<GeneralResponse> {
     const [err, response] = await to(this.userService.read(id));
 

@@ -7,6 +7,11 @@ import { RoleModule } from './role/role.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(databaseOptions), UserModule, RoleModule, AuthModule],
+  imports: [
+    TypeOrmModule.forRoot(databaseOptions),
+    UserModule,
+    RoleModule,
+    AuthModule,
+  ],
 })
 export class AppModule {}

@@ -28,4 +28,8 @@ export class AuthService {
       access_token: this.jwtService.sign({ ...user }),
     };
   }
+
+  validateToken(accessToken: string) {
+    return this.jwtService.verify(accessToken);
+  }
 }

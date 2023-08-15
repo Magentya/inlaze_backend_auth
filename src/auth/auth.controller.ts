@@ -12,6 +12,7 @@ import to from 'await-to-js';
 import { GeneralResponse } from 'src/types';
 import { LoginDto, LoginSchema } from './auth.dto.and.joi';
 import { JoiValidationPipe } from 'src/pipe/joi.pipe';
+import { MessagePattern, RpcException } from '@nestjs/microservices';
 
 @Controller('auth')
 export class AuthController {
@@ -34,5 +35,21 @@ export class AuthController {
       statusCode: HttpStatus.OK,
       data: response,
     };
+  }
+
+  @MessagePattern('validateToken')
+  async validateToken({ accessToken }: { accessToken: string }) {
+    try {
+      if (!accessToken) {
+        throw new RpcException('Not token provided');
+      }
+
+      // Validate access token
+      const responseToken = this.authService.validateToken(accessToken);
+
+      return responseToken;
+    } catch (error) {
+      throw new RpcException(error.message);
+    }
   }
 }
