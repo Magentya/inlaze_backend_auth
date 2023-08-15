@@ -17,6 +17,8 @@ export class User extends Common {
   @Column({ type: 'varchar', nullable: true })
   phone: string;
 
-  @OneToOne(() => Rol, (rol) => rol.user)
+  @OneToOne(() => Rol, (rol) => rol.user, {
+    onDelete: 'CASCADE',
+  })
   rol: Rol;
 }
